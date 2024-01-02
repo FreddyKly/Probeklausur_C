@@ -14,29 +14,33 @@ int main()
     while(!criteriaFullfilled){
 	    printf("Please enter a password: ");
 		scanf("%s50", password);
-		criteriaFullfilled = 1;
+		criteriaFullfilled = (checkForCapitalLetter(password) && checkForDigit(password) && checkForMinSize(password));
+		if(!criteriaFullfilled){
+			printf("Invalid Password\n");
+		}
     }
     printf("%s\n", password);
 }
 
 int checkForMinSize(char pw[]){
-	char currentChar;
+	char currentChar = 1;
 	int idx = 0;
 	while(currentChar != '\0'){ // Man könnte auch mit strlen() arbeiten wenn man "string.h" inkludiert
 		currentChar = pw[idx];
 		idx++;
 	}
-	if(idx >= 5){
+	if(idx > 6){
 		return 1;
 	}else{
+		printf("The Password needs to be atleast 6 Characters long\n");
 		return 0;
 	}
 }
 int checkForCapitalLetter(char pw[]){
-	char currentChar;
+	char currentChar = 1;
 	int idx = 0;
 	char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-	printf("A:%d, Z:%d", 'A', 'Z');
+	// printf("A:%d, Z:%d", 'A', 'Z');
 	// Wenn man ASCII Tabelle nicht mehr weiß: printf("A:%d, Z:%d", 'A', 'Z') 
 	while(currentChar != '\0'){ // Man könnte auch mit strlen() arbeiten wenn man "string.h" inkludiert
 		currentChar = pw[idx];
@@ -47,19 +51,23 @@ int checkForCapitalLetter(char pw[]){
 			}
 		}
 	}
+	printf("The Password needs to have at least on capital letter in it\n");
 	return 0;
 }
 int checkForDigit(char pw[]){
+	char currentChar = 1;
+	int idx = 0;
 	while(currentChar != '\0'){ // Man könnte auch mit strlen() arbeiten wenn man "string.h" inkludiert
 		currentChar = pw[idx];
 		idx++;
-		char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
-		printf("0:%d, 9:%d", '0', '9');
-		for (int i = 0; i<10, i++){
+		char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+		// printf("0:%d, 9:%d", '0', '9');
+		for (int i = 0; i<10; i++){
 			if (currentChar == digits[i]){
 				return 1;
 			}
 		}
 	}
+	printf("The Password needs to have at least on digit in it\n");
 	return 0;
 }
