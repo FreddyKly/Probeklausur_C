@@ -9,17 +9,22 @@ int checkForDigit(char pw[]);
 int main()
 {
 	int criteriaFullfilled = 0;
+	int tries = 0;
 	char password [51]; // 51 für '\0' am Ende des Passworts
-	set_fg_color("blue");
-    while(!criteriaFullfilled){
+    while(!criteriaFullfilled && tries < 3){
+		set_fg_color("blue");
 	    printf("Please enter a password: ");
 		scanf("%s50", password);
 		criteriaFullfilled = (checkForCapitalLetter(password) && checkForDigit(password) && checkForMinSize(password));
 		if(!criteriaFullfilled){
 			printf("Invalid Password\n");
 		}
+		tries++;
     }
-    printf("%s\n", password);
+    set_fg_color("red");
+	set_text_bold();
+	printf("The password has been entered 3 times without fullfilling the criteria. Try Again!\n");
+	return 0;
 }
 
 int checkForMinSize(char pw[]){
@@ -32,6 +37,7 @@ int checkForMinSize(char pw[]){
 	if(idx > 6){
 		return 1;
 	}else{
+		set_fg_color("red");
 		printf("The Password needs to be atleast 6 Characters long\n");
 		return 0;
 	}
@@ -51,6 +57,7 @@ int checkForCapitalLetter(char pw[]){
 			}
 		}
 	}
+	set_fg_color("red");
 	printf("The Password needs to have at least on capital letter in it\n");
 	return 0;
 }
@@ -68,6 +75,7 @@ int checkForDigit(char pw[]){
 			}
 		}
 	}
+	set_fg_color("red");
 	printf("The Password needs to have at least on digit in it\n");
 	return 0;
 }
